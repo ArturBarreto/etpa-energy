@@ -29,24 +29,45 @@ resource "aws_iam_role_policy" "github_actions_policy" {
     Statement = [
       {
         Effect = "Allow",
-        Action = ["ecr:GetAuthorizationToken"],
+        Action = [
+          "ecr:GetAuthorizationToken"
+        ],
         Resource = "*"
       },
       {
         Effect = "Allow",
         Action = [
-          "ecr:BatchCheckLayerAvailability","ecr:CompleteLayerUpload","ecr:BatchGetImage",
-          "ecr:DescribeRepositories","ecr:InitiateLayerUpload","ecr:UploadLayerPart","ecr:PutImage"],
+          "ecr:BatchCheckLayerAvailability",
+          "ecr:CompleteLayerUpload",
+          "ecr:BatchGetImage",
+          "ecr:DescribeRepositories",
+          "ecr:InitiateLayerUpload",
+          "ecr:UploadLayerPart",
+          "ecr:PutImage",
+          "ecr:CreateRepository"
+        ],
         Resource = "*"
       },
       {
         Effect = "Allow",
-        Action = ["apprunner:*"],
+        Action = [
+          "apprunner:*"
+        ],
         Resource = "*"
       },
       {
         Effect = "Allow",
-        Action = ["rds:DescribeDBInstances"],
+        Action = [
+          "rds:DescribeDBInstances",
+          "rds:CreateDBInstance"
+        ],
+        Resource = "*"
+      },
+      {
+        Effect = "Allow",
+        Action = [
+          "iam:CreateOpenIDConnectProvider"
+        ],
         Resource = "*"
       }
     ]

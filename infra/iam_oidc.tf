@@ -60,7 +60,8 @@ resource "aws_iam_role_policy" "github_actions_policy" {
         Effect = "Allow",
         Action = [
           "rds:DescribeDBInstances",
-          "rds:CreateDBInstance"
+          "rds:CreateDBInstance",
+          "rds:ModifyDBInstance"
         ],
         Resource = "*"
       },
@@ -68,7 +69,8 @@ resource "aws_iam_role_policy" "github_actions_policy" {
         Effect = "Allow",
         Action = [
           "iam:CreateOpenIDConnectProvider",
-          "iam:GetOpenIDConnectProvider"
+          "iam:GetOpenIDConnectProvider",
+          "iam:CreateRole"
         ],
         Resource = "*"
       }

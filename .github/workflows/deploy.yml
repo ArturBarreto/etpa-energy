@@ -1,0 +1,82 @@
+name: Deploy
+on:
+  push:
+    branches: [ main ]
+
+env:
+  AWS_REGION: eu-central-1
+  APP_NAME: etpa-energy
+  TF_DIR: infra
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write    # OIDC
+      contents: read
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+
+      - name: Build jar
+        run: mvn -B -DskipTests package
+
+      - name: Configure AWS credentials (OIDC)
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.GITHUB_ACTIONS_ROLE_ARN }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Terraform setup
+        uses: hashicorp/setup-terraform@v3
+
+      # 1) Core infra first (ECR, RDS) — no App Runner yet
+      - name: Terraform Init (core)
+        working-directory: ${{ env.TF_DIR }}
+        run: terraform init -input=false
+
+      - name: Terraform Apply (core infra)
+        working-directory: ${{ env.TF_DIR }}
+        run: |
+          terraform apply -auto-approve -input=false \
+            -var "region=${{ env.AWS_REGION }}" \
+            -var "app_name=${{ env.APP_NAME }}" \
+            -var "db_pass=${{ secrets.DB_PASS }}" \
+            -var "github_org_repo=${{ github.repository }}" \
+            -var "create_apprunner=false"
+
+      # 2) Login to ECR
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v2
+
+      # 3) Build & push image to ECR (tag = short SHA)
+      - name: Compute image tag
+        id: meta
+        run: echo "tag=${GITHUB_SHA::7}" >> $GITHUB_OUTPUT
+
+      - name: Build and push image
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          push: true
+          tags: ${{ steps.login-ecr.outputs.registry }}/${{ env.APP_NAME }}:${{ steps.meta.outputs.tag }}
+          labels: |
+            org.opencontainers.image.revision=${{ github.sha }}
+
+      # 4) Create/Update App Runner to point to new image
+      - name: Terraform Apply (App Runner w/ image)
+        working-directory: ${{ env.TF_DIR }}
+        run: |
+          terraform apply -auto-approve -input=false \
+            -var "region=${{ env.AWS_REGION }}" \
+            -var "app_name=${{ env.APP_NAME }}" \
+            -var "db_pass=${{ secrets.DB_PASS }}" \
+            -var "github_org_repo=${{ github.repository }}" \
+            -var "create_apprunner=true" \
+            -var "image_tag=${{ steps.meta.outputs.tag }}"

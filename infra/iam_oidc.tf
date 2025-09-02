@@ -70,7 +70,8 @@ resource "aws_iam_role_policy" "github_actions_policy" {
         Action = [
           "iam:CreateOpenIDConnectProvider",
           "iam:GetOpenIDConnectProvider",
-          "iam:CreateRole"
+          "iam:CreateRole",
+          "iam:GetRole"
         ],
         Resource = "*"
       }

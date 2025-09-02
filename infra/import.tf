@@ -17,3 +17,8 @@ import {
   to = aws_iam_role.github_actions
   id = "etpa-energy-github-actions"
 }
+
+import {
+  to = aws_iam_role.apprunner_ecr_access
+  id = "etpa-energy-apprunner-ecr-access"
+}

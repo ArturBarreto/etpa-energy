@@ -44,7 +44,8 @@ resource "aws_iam_role_policy" "github_actions_policy" {
           "ecr:InitiateLayerUpload",
           "ecr:UploadLayerPart",
           "ecr:PutImage",
-          "ecr:CreateRepository"
+          "ecr:CreateRepository",
+          "ecr:ListTagsForResource"
         ],
         Resource = "*"
       },
@@ -66,7 +67,8 @@ resource "aws_iam_role_policy" "github_actions_policy" {
       {
         Effect = "Allow",
         Action = [
-          "iam:CreateOpenIDConnectProvider"
+          "iam:CreateOpenIDConnectProvider",
+          "iam:GetOpenIDConnectProvider"
         ],
         Resource = "*"
       }

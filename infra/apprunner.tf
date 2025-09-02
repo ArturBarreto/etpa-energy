@@ -31,7 +31,7 @@ resource "aws_apprunner_service" "svc" {
 
   health_check_configuration {
     protocol            = "HTTP"
-    path                = "/api/hello" # change to "/actuator/health" if you didn't set a base-path
+    path                = "/api/actuator/health" # change to "/actuator/health" if you didn't set a base-path
     healthy_threshold   = 1
     interval            = 10
     timeout             = 5

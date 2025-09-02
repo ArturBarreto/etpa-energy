@@ -27,5 +27,5 @@ jobs:
           terraform apply -auto-approve -input=false \
             -var "region=${{ secrets.BOOTSTRAP_AWS_REGION }}" \
             -var "app_name=etpa-energy" \
-            -var "db_pass=dummy" \
+            -var "db_pass=${{ secrets.DB_PASS }}" \
             -var "github_org_repo=${{ github.repository }}"

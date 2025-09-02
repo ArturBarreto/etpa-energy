@@ -8,9 +8,15 @@ resource "aws_apprunner_service" "svc" {
 
   source_configuration {
     auto_deployments_enabled = true
+
+    authentication_configuration {
+      access_role_arn = aws_iam_role.apprunner_ecr_access.arn
+    }
+
     image_repository {
       image_repository_type = "ECR"
       image_identifier      = local.image_identifier
+
       image_configuration {
         port = "8080"
         runtime_environment_variables = {
@@ -25,7 +31,7 @@ resource "aws_apprunner_service" "svc" {
 
   health_check_configuration {
     protocol            = "HTTP"
-    path                = "/api/actuator/health"
+    path                = "/api/actuator/health" # change to "/actuator/health" if you didn't set a base-path
     healthy_threshold   = 1
     interval            = 10
     timeout             = 5
@@ -33,16 +39,7 @@ resource "aws_apprunner_service" "svc" {
   }
 
   instance_configuration {
-    cpu = "1 vCPU"
+    cpu    = "1 vCPU"
     memory = "2 GB"
   }
-}
-
-output "apprunner_service_arn" {
-  value       = var.create_apprunner ? aws_apprunner_service.svc[0].arn : null
-  description = "Present after first deploy"
-}
-output "apprunner_url" {
-  value       = var.create_apprunner ? aws_apprunner_service.svc[0].service_url : null
-  description = "Present after first deploy"
 }

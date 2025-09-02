@@ -74,7 +74,8 @@ resource "aws_iam_role_policy" "github_actions_policy" {
           "iam:GetRole",
           "iam:ListRolePolicies",
           "iam:GetRolePolicy",
-          "iam:ListAttachedRolePolicies"
+          "iam:ListAttachedRolePolicies",
+          "iam:PutRolePolicy"
         ],
         Resource = "*"
       }

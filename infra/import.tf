@@ -1,0 +1,14 @@
+import {
+  to = aws_ecr_repository.app
+  id = "etpa-energy"
+}
+
+import {
+  to = aws_iam_openid_connect_provider.github
+  id = "arn:aws:iam::982534393012:oidc-provider/token.actions.githubusercontent.com"
+}
+
+import {
+  to = aws_db_instance.pg
+  id = "etpa-energy-pg"
+}

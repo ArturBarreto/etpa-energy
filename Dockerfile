@@ -1,12 +1,16 @@
-# Build
+# ========== Build stage ==========
 FROM maven:3.9-eclipse-temurin-21 AS build
 WORKDIR /app
-COPY pom.xml .
-RUN mvn -q -DskipTests package || true
-COPY src ./src
-RUN mvn -q -DskipTests package
 
-# Run
+# 1) Copy the pom and download dependencies (caches nicely)
+COPY pom.xml .
+RUN mvn -B -q -DskipTests dependency:go-offline
+
+# 2) Copy the source and build
+COPY src ./src
+RUN mvn -B -q -DskipTests package
+
+# ========== Run stage ==========
 FROM eclipse-temurin:21-jre
 WORKDIR /app
 COPY --from=build /app/target/*.jar app.jar

@@ -12,3 +12,8 @@ import {
   to = aws_db_instance.pg
   id = "etpa-energy-pg"
 }
+
+import {
+  to = aws_iam_role.github_actions
+  id = "etpa-energy-github-actions"
+}

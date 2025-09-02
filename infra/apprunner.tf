@@ -32,7 +32,10 @@ resource "aws_apprunner_service" "svc" {
     unhealthy_threshold = 5
   }
 
-  instance_configuration { cpu = "1 vCPU", memory = "2 GB" }
+  instance_configuration {
+    cpu = "1 vCPU"
+    memory = "2 GB"
+  }
 }
 
 output "apprunner_service_arn" {

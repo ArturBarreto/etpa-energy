@@ -27,14 +27,32 @@ resource "aws_iam_role_policy" "github_actions_policy" {
   policy = jsonencode({
     Version = "2012-10-17",
     Statement = [
-      { Effect = "Allow", Action = ["ecr:GetAuthorizationToken"], Resource = "*" },
-      { Effect = "Allow", Action = [
+      {
+        Effect = "Allow",
+        Action = ["ecr:GetAuthorizationToken"],
+        Resource = "*"
+      },
+      {
+        Effect = "Allow",
+        Action = [
           "ecr:BatchCheckLayerAvailability","ecr:CompleteLayerUpload","ecr:BatchGetImage",
-          "ecr:DescribeRepositories","ecr:InitiateLayerUpload","ecr:UploadLayerPart","ecr:PutImage"], Resource = "*" },
-      { Effect = "Allow", Action = ["apprunner:*"], Resource = "*" },
-      { Effect = "Allow", Action = ["rds:DescribeDBInstances"], Resource = "*" }
+          "ecr:DescribeRepositories","ecr:InitiateLayerUpload","ecr:UploadLayerPart","ecr:PutImage"],
+        Resource = "*"
+      },
+      {
+        Effect = "Allow",
+        Action = ["apprunner:*"],
+        Resource = "*"
+      },
+      {
+        Effect = "Allow",
+        Action = ["rds:DescribeDBInstances"],
+        Resource = "*"
+      }
     ]
   })
 }
 
-output "github_actions_role_arn" { value = aws_iam_role.github_actions.arn }
+output "github_actions_role_arn" {
+  value = aws_iam_role.github_actions.arn
+}

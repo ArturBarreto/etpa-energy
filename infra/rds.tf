@@ -11,4 +11,7 @@ resource "aws_db_instance" "pg" {
   skip_final_snapshot     = true
   backup_retention_period = 1
 }
-output "rds_endpoint" { value = aws_db_instance.pg.address }
+
+output "rds_endpoint" {
+  value = aws_db_instance.pg.address
+}

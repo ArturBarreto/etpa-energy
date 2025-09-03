@@ -8,10 +8,10 @@ import {
   id = "arn:aws:iam::982534393012:oidc-provider/token.actions.githubusercontent.com"
 }
 
-# import {
-#   to = aws_db_instance.pg
-#   id = "etpa-energy-pg"
-# }
+import {
+  to = aws_db_instance.pg
+  id = "etpa-energy-pg"
+}
 
 import {
   to = aws_iam_role.github_actions

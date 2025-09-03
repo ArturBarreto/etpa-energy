@@ -30,5 +30,5 @@ import {
 
 import {
   to = aws_security_group.pg_demo
-  id = "etpa-energy-pg-demo"
+  id = "sg-04ae28928aa11793c"
 }

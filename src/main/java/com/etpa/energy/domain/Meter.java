@@ -1,38 +1,32 @@
 package com.etpa.energy.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
 
-/**
- * Meter identified by meterId and linked to a Profile by profileCode.
- */
+import jakarta.persistence.*;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
+
+
 @Entity
+@Table(name = "meters")
 public class Meter {
     @Id
-    private String meterId;      // unique
-    private String profileCode;  // references Profile.profileCode
+    @Column(length = 64)
+    private String id; // e.g., "0001"
 
-    public Meter() {
 
-    }
-    public Meter(String meterId, String profileCode) {
-        this.meterId = meterId;
-        this.profileCode = profileCode;
-    }
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "profile_code")
+    private Profile profile; // profile applied to this meter
 
-    public String getMeterId() {
-        return meterId;
-    }
 
-    public void setMeterId(String meterId) {
-        this.meterId = meterId;
+    public Meter() {}
+    public Meter(String id, Profile profile) {
+        this.id = id; this.profile = profile;
     }
 
-    public String getProfileCode() {
-        return profileCode;
-    }
 
-    public void setProfileCode(String profileCode) {
-        this.profileCode = profileCode;
-    }
+    public String getId() { return id; }
+    public void setId(String id) { this.id = id; }
+    public Profile getProfile() { return profile; }
+    public void setProfile(Profile profile) { this.profile = profile; }
 }

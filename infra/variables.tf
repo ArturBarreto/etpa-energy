@@ -10,7 +10,7 @@ variable "app_name" {
 
 variable "db_name" {
   type = string
-  default = "energy"
+  default = "energydb"
 }
 
 variable "db_user" {

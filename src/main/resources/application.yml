@@ -46,8 +46,6 @@ spring:
   jpa:
     hibernate:
       ddl-auto: ${SPRING_JPA_HIBERNATE_DDL_AUTO} # is update in first run and validate after that
-    properties:
-      hibernate.dialect: org.hibernate.dialect.PostgreSQLDialect
 
 server:
   forward-headers-strategy: framework

@@ -34,7 +34,8 @@ resource "aws_iam_role_policy" "github_actions_policy" {
           "ecr:GetAuthorizationToken",
           "ec2:DescribeVpcs",
           "ec2:DescribeVpcAttribute",
-          "ec2:CreateSecurityGroup"
+          "ec2:CreateSecurityGroup",
+          "ec2:DescribeSecurityGroups"
         ],
         Resource = "*"
       },

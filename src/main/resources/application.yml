@@ -36,8 +36,6 @@ spring:
   jpa:
     hibernate:
       ddl-auto: validate
-    properties:
-      hibernate.dialect: org.hibernate.dialect.PostgreSQLDialect
 
 server:
   forward-headers-strategy: framework

@@ -25,5 +25,5 @@ import {
 
 import {
   to = aws_apprunner_service.svc
-  id = "etpa-energy"
+  id = "arn:aws:apprunner:eu-central-1:982534393012:service/etpa-energy/7e2e602b8ac34318ba4b9ae069abbb6e"
 }

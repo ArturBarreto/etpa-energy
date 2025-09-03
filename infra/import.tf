@@ -27,3 +27,8 @@ import {
   to = aws_apprunner_service.svc
   id = "arn:aws:apprunner:eu-central-1:982534393012:service/etpa-energy/7e2e602b8ac34318ba4b9ae069abbb6e"
 }
+
+import {
+  to = aws_security_group.pg_demo
+  id = "etpa-energy-pg-demo"
+}

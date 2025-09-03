@@ -1,3 +1,4 @@
+# Dev runs with H2
 spring:
   datasource:
     url: jdbc:h2:mem:testdb;MODE=PostgreSQL;DB_CLOSE_DELAY=-1
@@ -6,6 +7,9 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: true
   h2:
     console:
       enabled: true
@@ -16,8 +20,18 @@ server:
   servlet:
     context-path: /api
 
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+  endpoint:
+    health:
+      show-details: never
+
 ---
 
+#Prod reads DB URL/creds from env vars (set in github repository secrets)
 spring:
   config:
     activate:
@@ -28,7 +42,7 @@ spring:
     password: ${SPRING_DATASOURCE_PASSWORD}
   jpa:
     hibernate:
-      ddl-auto: validate
+      ddl-auto: ${SPRING_JPA_HIBERNATE_DDL_AUTO} # is update in first run and validate after that
 
 server:
   forward-headers-strategy: framework

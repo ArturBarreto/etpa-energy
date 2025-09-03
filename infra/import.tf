@@ -22,3 +22,8 @@ import {
   to = aws_iam_role.apprunner_ecr_access
   id = "etpa-energy-apprunner-ecr-access"
 }
+
+import {
+  to = aws_apprunner_service.svc
+  id = "etpa-energy"
+}

@@ -1,11 +1,15 @@
 spring:
   datasource:
-    url: jdbc:h2:mem:energy;MODE=PostgreSQL;DB_CLOSE_DELAY=-1
+    url: jdbc:h2:mem:testdb;MODE=PostgreSQL;DB_CLOSE_DELAY=-1
     username: sa
-    password: sa
+    password:
   jpa:
     hibernate:
       ddl-auto: update
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
 
 server:
   forward-headers-strategy: framework

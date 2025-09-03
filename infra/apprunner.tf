@@ -3,7 +3,7 @@ locals {
 }
 
 resource "aws_apprunner_service" "svc" {
-  count        = var.create_apprunner ? 1 : 0
+  // count        = var.create_apprunner ? 1 : 0
   service_name = var.app_name
 
   source_configuration {

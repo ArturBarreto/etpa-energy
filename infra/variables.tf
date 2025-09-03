@@ -37,5 +37,5 @@ variable "image_tag" {
 # create it after image exists
 variable "create_apprunner" {
   type = bool
-  default = false
+  default = true
 }

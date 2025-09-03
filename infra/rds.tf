@@ -10,6 +10,32 @@ resource "aws_db_instance" "pg" {
   publicly_accessible     = true
   skip_final_snapshot     = true
   backup_retention_period = 1
+  vpc_security_group_ids  = [aws_security_group.pg_demo.id]
+}
+
+data "aws_vpc" "default" {
+  default = true
+}
+
+resource "aws_security_group" "pg_demo" {
+  name        = "${var.app_name}-pg-demo"
+  description = "Allow inbound PostgreSQL for demo"
+  vpc_id      = data.aws_vpc.default.id
+
+  ingress {
+    description = "TEMP: PostgreSQL"
+    from_port   = 5432
+    to_port     = 5432
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
 }
 
 output "rds_endpoint" {

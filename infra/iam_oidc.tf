@@ -31,7 +31,8 @@ resource "aws_iam_role_policy" "github_actions_policy" {
       {
         Effect = "Allow",
         Action = [
-          "ecr:GetAuthorizationToken"
+          "ecr:GetAuthorizationToken",
+          "ec2:DescribeVpcs"
         ],
         Resource = "*"
       },

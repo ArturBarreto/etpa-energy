@@ -1,4 +1,4 @@
-package com.etpa.energy.api;
+package com.etpa.energy.web;
 import org.springframework.web.bind.annotation.*;
 
 @RestController

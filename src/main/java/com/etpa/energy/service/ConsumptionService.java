@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.time.Month;
+import java.util.NoSuchElementException;
 
 @Service
 public class ConsumptionService {
@@ -16,7 +17,7 @@ public class ConsumptionService {
 
     public ConsumptionResponse getMonthly(String meterId, int year, Month month) {
         MeterReading curr = readings.findByMeter_IdAndYearAndMonth(meterId, year, month)
-                .orElseThrow(() -> new IllegalArgumentException("Reading not found"));
+                .orElseThrow(() -> new NoSuchElementException("Reading not found"));
         BigDecimal prev = BigDecimal.ZERO;
         if (month != Month.JANUARY) {
             prev = readings.findByMeter_IdAndYearAndMonth(meterId, year, month.minus(1))

@@ -7,6 +7,8 @@ import com.etpa.energy.repo.MeterRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.NoSuchElementException;
+
 @Service
 public class MeterService {
     private final MeterRepository meters;
@@ -26,6 +28,6 @@ public class MeterService {
     }
 
     public Meter getOrThrow(String id) {
-        return meters.findById(id).orElseThrow(() -> new IllegalArgumentException("Meter not found: " + id));
+        return meters.findById(id).orElseThrow(() -> new NoSuchElementException("Meter not found: " + id));
     }
 }

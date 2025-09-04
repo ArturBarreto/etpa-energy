@@ -30,7 +30,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ApiError> other(Exception ex, HttpServletRequest req){
-        return build(HttpStatus.INTERNAL_SERVER_ERROR, ex, req, List.of());
+        return build(HttpStatus.BAD_REQUEST, ex, req, List.of());
     }
 
     private ResponseEntity<ApiError> build(HttpStatus status, Exception ex, HttpServletRequest req, List<String> details){

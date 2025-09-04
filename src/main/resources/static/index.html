@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Energy API</title>
+    <style>
+        :root {
+            --bg: #0f172a;
+            --fg: #e2e8f0;
+            --muted: #94a3b8;
+            --card-bg: #111827;
+            --border: #1f2937;
+            --accent: #3b82f6;
+            --radius: 12px;
+        }
+        body {
+            margin: 0;
+            font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+            background: var(--bg);
+            color: var(--fg);
+            line-height: 1.6;
+        }
+        .wrap {
+            max-width: 780px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        h1, h2, h3 {
+            margin-top: 1.6em;
+            margin-bottom: 0.4em;
+            font-weight: 600;
+        }
+        h1 { font-size: 32px; }
+        h2 { font-size: 22px; }
+        h3 { font-size: 18px; }
+        p { margin: 0.4em 0 1em; }
+        a { color: var(--accent); text-decoration: none; }
+        a:hover { text-decoration: underline; }
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 18px 22px;
+            margin: 16px 0;
+        }
+        code {
+            background: #0b1220;
+            padding: 2px 6px;
+            border-radius: 6px;
+            font-family: monospace;
+            color: #f8fafc;
+        }
+        pre {
+            background: #0b1220;
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+            padding: 16px;
+            overflow-x: auto;
+            font-size: 14px;
+        }
+        footer {
+            margin-top: 40px;
+            font-size: 13px;
+            color: var(--muted);
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<div class="wrap">
+    <h1>⚡ Energy API</h1>
+    <p class="muted">
+        A Spring Boot 3 / Java 21 application for managing load profiles, meters,
+        cumulative readings, and deriving monthly consumption.
+    </p>
+
+    <h2>About</h2>
+    <p>
+        This API was built as part of the ETPA Energy use-case assignment.
+        It demonstrates a clean architecture with:
+    </p>
+    <ul>
+        <li>Profiles with monthly fractions</li>
+        <li>Meters linked to profiles</li>
+        <li>Meter readings with yearly imports (12 values)</li>
+        <li>Consumption calculations per month</li>
+        <li>Dev mode: H2 in-memory DB, Prod mode: PostgreSQL on AWS RDS</li>
+    </ul>
+
+    <h2>Docs & Tools</h2>
+    <div class="card">
+        <ul>
+            <li><a href="https://github.com/ArturBarreto/etpa-energy/blob/main/README.md">README</a></li>
+            <li><a href="/api/swagger-ui.html">Swagger UI</a> – interactive docs</li>
+            <li><a href="/api/v3/api-docs">OpenAPI JSON</a> – raw schema</li>
+            <li><a href="/api/h2-console">H2 Console (dev only)</a></li>
+        </ul>
+    </div>
+
+    <h2>Database Info</h2>
+    <div class="card">
+        <p><strong>Dev</strong>: H2 (in-memory)</p>
+        <ul>
+            <li>JDBC: <code>jdbc:h2:mem:testdb;MODE=PostgreSQL;DB_CLOSE_DELAY=-1</code></li>
+            <li>User: <code>sa</code>, password: (blank)</li>
+            <li>Console: <a href="/api/h2-console">/api/h2-console</a></li>
+        </ul>
+        <p><strong>Prod</strong>: PostgreSQL on AWS RDS (credentials from env vars)</p>
+    </div>
+
+    <h2>About the Author</h2>
+    <div class="card">
+        <p><strong>Artur Gomes Barreto</strong></p>
+        <ul>
+            <li>Email: <a href="mailto:artur.gomes.barreto@gmail.com">artur.gomes.barreto@gmail.com</a></li>
+            <li>GitHub: <a href="https://github.com/arturbarreto/etpa-energy" target="_blank">github.com/arturbarreto/etpa-energy</a></li>
+            <li>LinkedIn: <a href="https://www.linkedin.com/in/arturgomesbarreto" target="_blank">linkedin.com/in/arturgomesbarreto</a></li>
+        </ul>
+    </div>
+
+    <footer>
+        © Artur Gomes Barreto • Spring Boot 3 • Java 21
+    </footer>
+</div>
+</body>
+</html>

@@ -102,4 +102,22 @@ public class MeterReadingService {
             }
         }
     }
+
+    public java.util.List<com.etpa.energy.dto.MeterReadingDTO> getYear(String meterId, int year) {
+        var list = readings.findByMeter_IdAndYearOrderByMonthAsc(meterId, year);
+        if (list.isEmpty()) {
+            throw new java.util.NoSuchElementException("No readings for meter %s in %d".formatted(meterId, year));
+        }
+        return list.stream()
+                .sorted(java.util.Comparator.comparingInt(r -> r.getMonth().getValue()))
+                .map(r -> new com.etpa.energy.dto.MeterReadingDTO(r.getMonth(), r.getReading()))
+                .toList();
+    }
+
+    public com.etpa.energy.dto.MeterReadingDTO getOne(String meterId, int year, java.time.Month month) {
+        var r = readings.findByMeter_IdAndYearAndMonth(meterId, year, month)
+                .orElseThrow(() -> new java.util.NoSuchElementException(
+                        "Reading not found for meter %s, %d-%s".formatted(meterId, year, month)));
+        return new com.etpa.energy.dto.MeterReadingDTO(r.getMonth(), r.getReading());
+    }
 }

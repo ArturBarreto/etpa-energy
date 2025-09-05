@@ -9,10 +9,12 @@ import org.springframework.context.annotation.Configuration;
 
 @OpenAPIDefinition(
         info = @Info(
-                title = "ETPA Energy API",
+                title = "Energy API",
                 version = "1.0.0",
-                description = "Profiles, meters, meter readings and consumption",
-                contact = @Contact(name = "ETPA", email = "dev@etpa.local")
+                description = "A Spring Boot 3 / Java 21 application for managing load profiles, meters," +
+                        " cumulative readings, and deriving monthly consumption. This API was built as part" +
+                        " of the ETPA Energy use-case assignment." ,
+                contact = @Contact(name = "Artur Gomes Barreto", email = "artur.gomes.barreto@gmail.com")
         ),
         servers = {@Server(url = "/api", description = "Default server")},
         tags = {

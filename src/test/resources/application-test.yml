@@ -1,0 +1,15 @@
+spring:
+  main:
+    banner-mode: "off"
+  jackson:
+    serialization:
+      write-dates-as-timestamps: false
+  mvc:
+    problemdetails:
+      enabled: true
+
+logging:
+  level:
+    root: WARN
+    org.springframework.test: INFO
+    com.etpa.energy: INFO
